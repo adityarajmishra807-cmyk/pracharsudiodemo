@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/_app'
+import { Route as AppAnalyticsRouteImport } from './routes/_app/analytics'
 import { Route as AppAutomationsRouteImport } from './routes/_app/automations'
 import { Route as AppCampaignsRouteImport } from './routes/_app/campaigns'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
@@ -29,6 +30,11 @@ const IndexRoute = IndexRouteImport.update({
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppAutomationsRoute = AppAutomationsRouteImport.update({
   id: '/automations',
@@ -78,6 +84,7 @@ const AppLeadsLeadIdRoute = AppLeadsLeadIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AppAnalyticsRoute
   '/automations': typeof AppAutomationsRoute
   '/campaigns': typeof AppCampaignsRoute
   '/dashboard': typeof AppDashboardRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AppAnalyticsRoute
   '/automations': typeof AppAutomationsRoute
   '/campaigns': typeof AppCampaignsRoute
   '/dashboard': typeof AppDashboardRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
+  '/_app/analytics': typeof AppAnalyticsRoute
   '/_app/automations': typeof AppAutomationsRoute
   '/_app/campaigns': typeof AppCampaignsRoute
   '/_app/dashboard': typeof AppDashboardRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/analytics'
     | '/automations'
     | '/campaigns'
     | '/dashboard'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/analytics'
     | '/automations'
     | '/campaigns'
     | '/dashboard'
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_app'
+    | '/_app/analytics'
     | '/_app/automations'
     | '/_app/campaigns'
     | '/_app/dashboard'
@@ -174,6 +186,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/analytics': {
+      id: '/_app/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/automations': {
       id: '/_app/automations'
@@ -242,6 +261,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppAutomationsRoute: typeof AppAutomationsRoute
   AppCampaignsRoute: typeof AppCampaignsRoute
   AppDashboardRoute: typeof AppDashboardRoute
@@ -254,6 +274,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAnalyticsRoute: AppAnalyticsRoute,
   AppAutomationsRoute: AppAutomationsRoute,
   AppCampaignsRoute: AppCampaignsRoute,
   AppDashboardRoute: AppDashboardRoute,
