@@ -137,10 +137,10 @@ export type Campaign = {
 export type NodeType =
   | "trigger"
   | "condition"
-  | "action"
-  | "wait"
+  | "tag"
+  | "delay"
   | "message"
-  | "assignment";
+  | "assign";
 
 export type WorkflowNode = {
   id: string;
