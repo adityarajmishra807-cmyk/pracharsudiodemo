@@ -263,7 +263,7 @@ function AutomationsPage() {
                             <div className="space-y-1.5">
                               <Label htmlFor={`n-${node.id}`}>When</Label>
                               <Select
-                                value={node.config.event ?? "lead_created"}
+                                value={node.config['event'] ?? "lead_created"}
                                 onValueChange={(v) =>
                                   setConfig(active, node.id, "event", v)
                                 }
@@ -292,7 +292,7 @@ function AutomationsPage() {
                                 id={`n-${node.id}`}
                                 className="h-11"
                                 inputMode="numeric"
-                                value={node.config.minutes ?? ""}
+                                value={node.config['minutes'] ?? ""}
                                 onChange={(e) =>
                                   setConfig(active, node.id, "minutes", e.target.value)
                                 }
@@ -303,7 +303,7 @@ function AutomationsPage() {
                             <div className="space-y-1.5">
                               <Label htmlFor={`n-${node.id}`}>Template</Label>
                               <Select
-                                value={node.config.templateId ?? "none"}
+                                value={node.config['templateId'] ?? "none"}
                                 onValueChange={(v) =>
                                   setConfig(active, node.id, "templateId", v)
                                 }
@@ -333,7 +333,7 @@ function AutomationsPage() {
                               <Input
                                 id={`n-${node.id}`}
                                 className="h-11"
-                                value={node.config.tag ?? ""}
+                                value={node.config['tag'] ?? ""}
                                 onChange={(e) =>
                                   setConfig(active, node.id, "tag", e.target.value)
                                 }
@@ -344,7 +344,7 @@ function AutomationsPage() {
                             <div className="space-y-1.5">
                               <Label htmlFor={`n-${node.id}`}>Assign to</Label>
                               <Select
-                                value={node.config.memberId ?? "owner"}
+                                value={node.config['memberId'] ?? "owner"}
                                 onValueChange={(v) =>
                                   setConfig(active, node.id, "memberId", v)
                                 }
@@ -369,7 +369,7 @@ function AutomationsPage() {
                                 Continue only if status is
                               </Label>
                               <Select
-                                value={node.config.status ?? "new"}
+                                value={node.config['status'] ?? "new"}
                                 onValueChange={(v) =>
                                   setConfig(active, node.id, "status", v)
                                 }
