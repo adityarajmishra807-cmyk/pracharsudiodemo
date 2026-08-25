@@ -15,6 +15,7 @@ import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppPermissionsRouteImport } from './routes/_app/permissions'
 import { Route as AppTeamRouteImport } from './routes/_app/team'
 import { Route as AppLeadsIndexRouteImport } from './routes/_app/leads/index'
+import { Route as AppLeadsLeadIdRouteImport } from './routes/_app/leads/$leadId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -45,12 +46,18 @@ const AppLeadsIndexRoute = AppLeadsIndexRouteImport.update({
   path: '/leads/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppLeadsLeadIdRoute = AppLeadsLeadIdRouteImport.update({
+  id: '/leads/$leadId',
+  path: '/leads/$leadId',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
   '/permissions': typeof AppPermissionsRoute
   '/team': typeof AppTeamRoute
+  '/leads/$leadId': typeof AppLeadsLeadIdRoute
   '/leads/': typeof AppLeadsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -58,6 +65,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AppDashboardRoute
   '/permissions': typeof AppPermissionsRoute
   '/team': typeof AppTeamRoute
+  '/leads/$leadId': typeof AppLeadsLeadIdRoute
   '/leads': typeof AppLeadsIndexRoute
 }
 export interface FileRoutesById {
@@ -67,13 +75,16 @@ export interface FileRoutesById {
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/permissions': typeof AppPermissionsRoute
   '/_app/team': typeof AppTeamRoute
+  '/_app/leads/$leadId': typeof AppLeadsLeadIdRoute
   '/_app/leads/': typeof AppLeadsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/permissions' | '/team' | '/leads/'
+  fullPaths:
+    '/' | '/dashboard' | '/permissions' | '/team' | '/leads/$leadId' | '/leads/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/permissions' | '/team' | '/leads'
+  to:
+    '/' | '/dashboard' | '/permissions' | '/team' | '/leads/$leadId' | '/leads'
   id:
     | '__root__'
     | '/'
@@ -81,6 +92,7 @@ export interface FileRouteTypes {
     | '/_app/dashboard'
     | '/_app/permissions'
     | '/_app/team'
+    | '/_app/leads/$leadId'
     | '/_app/leads/'
   fileRoutesById: FileRoutesById
 }
@@ -133,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppLeadsIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/leads/$leadId': {
+      id: '/_app/leads/$leadId'
+      path: '/leads/$leadId'
+      fullPath: '/leads/$leadId'
+      preLoaderRoute: typeof AppLeadsLeadIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -140,6 +159,7 @@ interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppPermissionsRoute: typeof AppPermissionsRoute
   AppTeamRoute: typeof AppTeamRoute
+  AppLeadsLeadIdRoute: typeof AppLeadsLeadIdRoute
   AppLeadsIndexRoute: typeof AppLeadsIndexRoute
 }
 
@@ -147,6 +167,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppPermissionsRoute: AppPermissionsRoute,
   AppTeamRoute: AppTeamRoute,
+  AppLeadsLeadIdRoute: AppLeadsLeadIdRoute,
   AppLeadsIndexRoute: AppLeadsIndexRoute,
 }
 
