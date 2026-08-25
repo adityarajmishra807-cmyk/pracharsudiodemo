@@ -233,19 +233,6 @@ function LeadsPage() {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<LeadStatus | "all">("all");
 
-  if (!can("leadsView")) {
-    return (
-      <div className="space-y-5">
-        <PageHeader title="Leads" />
-        <EmptyState
-          icon={Lock}
-          title="No access to leads"
-          description="Your permissions don't include viewing leads. Ask the workspace owner to enable lead access."
-        />
-      </div>
-    );
-  }
-
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return state.leads.filter((lead) => {
@@ -259,6 +246,19 @@ function LeadsPage() {
       return matchesQuery && matchesStatus;
     });
   }, [state.leads, query, status]);
+
+  if (!can("leadsView")) {
+    return (
+      <div className="space-y-5">
+        <PageHeader title="Leads" />
+        <EmptyState
+          icon={Lock}
+          title="No access to leads"
+          description="Your permissions don't include viewing leads. Ask the workspace owner to enable lead access."
+        />
+      </div>
+    );
+  }
 
   const canCreate = can("leadsEdit");
 
