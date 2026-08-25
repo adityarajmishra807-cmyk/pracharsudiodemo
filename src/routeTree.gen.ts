@@ -11,11 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/_app'
+import { Route as AppAnalyticsRouteImport } from './routes/_app/analytics'
 import { Route as AppAutomationsRouteImport } from './routes/_app/automations'
 import { Route as AppCampaignsRouteImport } from './routes/_app/campaigns'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppInboxRouteImport } from './routes/_app/inbox'
 import { Route as AppPermissionsRouteImport } from './routes/_app/permissions'
+import { Route as AppSettingsRouteImport } from './routes/_app/settings'
 import { Route as AppTeamRouteImport } from './routes/_app/team'
 import { Route as AppTemplatesRouteImport } from './routes/_app/templates'
 import { Route as AppLeadsIndexRouteImport } from './routes/_app/leads/index'
@@ -29,6 +31,11 @@ const IndexRoute = IndexRouteImport.update({
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppAutomationsRoute = AppAutomationsRouteImport.update({
   id: '/automations',
@@ -55,6 +62,11 @@ const AppPermissionsRoute = AppPermissionsRouteImport.update({
   path: '/permissions',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppTeamRoute = AppTeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -78,11 +90,13 @@ const AppLeadsLeadIdRoute = AppLeadsLeadIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AppAnalyticsRoute
   '/automations': typeof AppAutomationsRoute
   '/campaigns': typeof AppCampaignsRoute
   '/dashboard': typeof AppDashboardRoute
   '/inbox': typeof AppInboxRoute
   '/permissions': typeof AppPermissionsRoute
+  '/settings': typeof AppSettingsRoute
   '/team': typeof AppTeamRoute
   '/templates': typeof AppTemplatesRoute
   '/leads/$leadId': typeof AppLeadsLeadIdRoute
@@ -90,11 +104,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AppAnalyticsRoute
   '/automations': typeof AppAutomationsRoute
   '/campaigns': typeof AppCampaignsRoute
   '/dashboard': typeof AppDashboardRoute
   '/inbox': typeof AppInboxRoute
   '/permissions': typeof AppPermissionsRoute
+  '/settings': typeof AppSettingsRoute
   '/team': typeof AppTeamRoute
   '/templates': typeof AppTemplatesRoute
   '/leads/$leadId': typeof AppLeadsLeadIdRoute
@@ -104,11 +120,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
+  '/_app/analytics': typeof AppAnalyticsRoute
   '/_app/automations': typeof AppAutomationsRoute
   '/_app/campaigns': typeof AppCampaignsRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/inbox': typeof AppInboxRoute
   '/_app/permissions': typeof AppPermissionsRoute
+  '/_app/settings': typeof AppSettingsRoute
   '/_app/team': typeof AppTeamRoute
   '/_app/templates': typeof AppTemplatesRoute
   '/_app/leads/$leadId': typeof AppLeadsLeadIdRoute
@@ -118,11 +136,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/analytics'
     | '/automations'
     | '/campaigns'
     | '/dashboard'
     | '/inbox'
     | '/permissions'
+    | '/settings'
     | '/team'
     | '/templates'
     | '/leads/$leadId'
@@ -130,11 +150,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/analytics'
     | '/automations'
     | '/campaigns'
     | '/dashboard'
     | '/inbox'
     | '/permissions'
+    | '/settings'
     | '/team'
     | '/templates'
     | '/leads/$leadId'
@@ -143,11 +165,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_app'
+    | '/_app/analytics'
     | '/_app/automations'
     | '/_app/campaigns'
     | '/_app/dashboard'
     | '/_app/inbox'
     | '/_app/permissions'
+    | '/_app/settings'
     | '/_app/team'
     | '/_app/templates'
     | '/_app/leads/$leadId'
@@ -174,6 +198,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/analytics': {
+      id: '/_app/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/automations': {
       id: '/_app/automations'
@@ -210,6 +241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPermissionsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/team': {
       id: '/_app/team'
       path: '/team'
@@ -242,11 +280,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppAutomationsRoute: typeof AppAutomationsRoute
   AppCampaignsRoute: typeof AppCampaignsRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppInboxRoute: typeof AppInboxRoute
   AppPermissionsRoute: typeof AppPermissionsRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppTeamRoute: typeof AppTeamRoute
   AppTemplatesRoute: typeof AppTemplatesRoute
   AppLeadsLeadIdRoute: typeof AppLeadsLeadIdRoute
@@ -254,11 +294,13 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAnalyticsRoute: AppAnalyticsRoute,
   AppAutomationsRoute: AppAutomationsRoute,
   AppCampaignsRoute: AppCampaignsRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppInboxRoute: AppInboxRoute,
   AppPermissionsRoute: AppPermissionsRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppTeamRoute: AppTeamRoute,
   AppTemplatesRoute: AppTemplatesRoute,
   AppLeadsLeadIdRoute: AppLeadsLeadIdRoute,
