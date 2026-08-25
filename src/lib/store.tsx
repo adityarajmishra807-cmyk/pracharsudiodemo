@@ -497,10 +497,10 @@ export const TEMPLATE_CATEGORIES = [
 export const NODE_TYPES: { type: NodeType; label: string; hint: string }[] = [
   { type: "trigger", label: "Trigger", hint: "Starts the workflow" },
   { type: "condition", label: "Condition", hint: "Branch on lead data" },
-  { type: "action", label: "Action", hint: "Update lead or add tag" },
-  { type: "wait", label: "Wait", hint: "Delay before next step" },
+  { type: "tag", label: "Add tag", hint: "Tag the lead" },
+  { type: "delay", label: "Delay", hint: "Wait before next step" },
   { type: "message", label: "Message / Template", hint: "Send a WhatsApp template" },
-  { type: "assignment", label: "Assignment", hint: "Assign to a team member" },
+  { type: "assign", label: "Assignment", hint: "Assign to a team member" },
 ];
 
 export function fillTemplate(body: string, vars: Record<string, string>) {
