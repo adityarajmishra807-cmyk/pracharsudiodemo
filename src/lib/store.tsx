@@ -275,8 +275,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const patch = useCallback((fn: (s: State) => State) => setState((s) => fn(s)), []);
 
   const currentMember = useMemo(() => {
-    if (state.session?.kind !== "member") return null;
-    return state.members.find((m) => m.id === state.session!.memberId!) ?? null;
+    const session = state.session;
+    if (session?.kind !== "member") return null;
+    return state.members.find((m) => m.id === session.memberId) ?? null;
   }, [state.session, state.members]);
 
   const isOwner = state.session?.kind === "owner";
